@@ -3,11 +3,14 @@ package cn.edu.nju.oa.base;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
+	@Resource
 	private SessionFactory sessionFactory;
 	private Class<T> clazz;
 

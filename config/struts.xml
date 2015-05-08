@@ -5,15 +5,31 @@
 
 <struts>
 
-	<constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="false" />
 	<constant name="struts.action.extension" value="action"></constant>
 	<constant name="struts.ui.theme" value="simple"></constant>
 
+	<!-- 测试 -->
 	<package name="default" namespace="/" extends="struts-default">
 		<action name="test" class="testAction">
 			<result name="success">test.jsp</result>
 		</action>
+
+		<!-- 岗位管理 -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">role_list</result>
+		</action>
+		
+		<!-- 部门管理 -->
+		<action name="department_*" class="departmentAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/departmentAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/departmentAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">department_list</result>
+		</action>
 	</package>
+
 
 	<include file="example.xml" />
 

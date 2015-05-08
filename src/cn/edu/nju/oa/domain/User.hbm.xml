@@ -1,15 +1,44 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015-5-7 15:03:19 by Hibernate Tools 3.4.0.CR1 -->
-<hibernate-mapping>
-	<class name="cn.edu.nju.oa.domain.User" table="OA_USER">
+<!-- Generated 2015-5-8 19:34:07 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="cn.edu.nju.oa.domain">
+	<class name="User" table="USER">
 		<id name="id" type="java.lang.Long">
 			<column name="ID" />
 			<generator class="native" />
 		</id>
+
 		<property name="name" type="java.lang.String">
 			<column name="NAME" />
 		</property>
+
+		<property name="loginName" type="java.lang.String">
+			<column name="LOGINNAME" />
+		</property>
+		<property name="gender" type="java.lang.String">
+			<column name="GENDER" />
+		</property>
+		<property name="phoneNumber" type="java.lang.String">
+			<column name="PHONENUMBER" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL" />
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" />
+		</property>
+		<!-- department属性，本类与Department为多对一关系 -->
+		<many-to-one name="department" class="Department"
+			fetch="join">
+			<column name="departmentId" />
+		</many-to-one>
+		<!-- roles属性，本类与Role属性为多对多关系 -->
+		<set name="roles" table="ROLE_USER" inverse="false" lazy="true">
+			<key>
+				<column name="userId" />
+			</key>
+			<many-to-many class="Role" column="roleId"/>
+		</set>
 	</class>
 </hibernate-mapping>
