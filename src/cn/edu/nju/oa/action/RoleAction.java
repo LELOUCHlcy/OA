@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import cn.edu.nju.oa.base.BaseAction;
 import cn.edu.nju.oa.domain.Role;
 import cn.edu.nju.oa.service.RoleService;
 
@@ -16,17 +17,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class RoleAction extends ActionSupport implements ModelDriven<Role> {
-
-	@Resource
-	private RoleService roleService;
-
-	private Role model = new Role();
-
-	@Override
-	public Role getModel() {
-		return model;
-	}
+public class RoleAction extends BaseAction<Role> {
 
 	/**
 	 * 列表功能
