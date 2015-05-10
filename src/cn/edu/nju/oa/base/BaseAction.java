@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import cn.edu.nju.oa.service.DepartmentService;
 import cn.edu.nju.oa.service.RoleService;
+import cn.edu.nju.oa.service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -18,9 +19,12 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	@Resource
 	protected DepartmentService departmentService;
 
+	@Resource
+	protected UserService userService;
+
 	protected T model;
 
-	public BaseAction()  {
+	public BaseAction() {
 		Class<T> clazz = null;
 		ParameterizedType pt = (ParameterizedType) this.getClass()
 				.getGenericSuperclass();

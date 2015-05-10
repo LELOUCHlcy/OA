@@ -1,13 +1,17 @@
 package cn.edu.nju.oa.base;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Resource
@@ -58,9 +62,14 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public List<T> getByIds(Long[] ids) {
-		return getSession()
-				.createQuery(
-						"FROM " + clazz.getSimpleName() + " WHERE id IN (:ids)")
-				.setParameterList("ids", ids).list();
+		if (ids == null || ids.length == 0) {
+			return Collections.EMPTY_LIST;
+		} else {
+			return getSession()
+					.createQuery(
+							"FROM " + clazz.getSimpleName()
+									+ " WHERE id IN (:ids)")
+					.setParameterList("ids", ids).list();
+		}
 	}
 }

@@ -8,6 +8,15 @@ public class User {
 	private Long id;
 	private Department department;
 	private String name;
+	private String password;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private Set<Role> roles = new HashSet<Role>();
 	private String loginName;
 	private String gender;
