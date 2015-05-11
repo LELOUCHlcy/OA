@@ -9,6 +9,7 @@ public class User {
 	private Department department;
 	private String name;
 	private String password;
+
 	public String getPassword() {
 		return password;
 	}
@@ -23,6 +24,24 @@ public class User {
 	private String phoneNumber;
 	private String email;
 	private String description;
+
+	public boolean hasPrivilegeByName(String privilegeName) {
+		if (isAdmin()) {
+			return true;
+		}
+		for (Role role : roles) {
+			for (Privilege privilege : role.getPrivileges()) {
+				if (privilege.getName().equals(privilegeName)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean isAdmin() {
+		return "admin".equals(loginName);
+	}
 
 	public Department getDepartment() {
 		return department;

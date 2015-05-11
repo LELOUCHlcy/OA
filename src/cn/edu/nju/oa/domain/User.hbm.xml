@@ -35,7 +35,7 @@
 			<column name="departmentId" />
 		</many-to-one>
 		<!-- roles属性，本类与Role属性为多对多关系 -->
-		<set name="roles" table="ROLE_USER" inverse="false" lazy="true">
+		<set name="roles" table="ROLE_USER" inverse="true" lazy="false">
 			<key>
 				<column name="userId" />
 			</key>

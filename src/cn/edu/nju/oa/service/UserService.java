@@ -5,4 +5,6 @@ import cn.edu.nju.oa.domain.User;
 
 public interface UserService extends DaoSupport<User> {
 
+	User findByNameAndPassword(String loginName, String password);
+
 }

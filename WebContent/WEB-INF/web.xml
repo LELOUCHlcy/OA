@@ -4,22 +4,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>OA</display-name>
-	<!-- 配置 Spring 配置文件的名称和位置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
-
-	<!-- 启动 IOC 容器的 ServletContextListener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	<listener>
+		<listener-class>cn.edu.nju.oa.util.InitListener</listener-class>
+	</listener>
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<url-pattern>*.action</url-pattern>
@@ -28,10 +26,8 @@
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
-
 </web-app>

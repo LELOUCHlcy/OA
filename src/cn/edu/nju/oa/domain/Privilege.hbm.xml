@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-11 13:12:46 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="cn.edu.nju.oa.domain">
+	<class name="Privilege" table="PRIVILEGE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<property name="url" type="java.lang.String">
+			<column name="URL" />
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+		<!-- roles属性，本类与Role是多对多关系 -->
+		<set name="roles" table="ROLE_PRIVILEGE" inverse="true" lazy="false">
+			<key>
+				<column name="privilegeId" />
+			</key>
+			<many-to-many class="Role" column="roleId" />
+		</set>
+
+		<!-- parent属性，本类与Privilege是多对一关系 -->
+		<many-to-one name="parent" class="Privilege">
+			<column name="parentId" />
+		</many-to-one>
+
+		<!-- children属性，本类与Privilege是一对多关系 -->
+		<set name="children" table="PRIVILEGE" inverse="false" lazy="false">
+			<key>
+				<column name="parentId" />
+			</key>
+			<one-to-many class="Privilege" />
+		</set>
+
+	</class>
+</hibernate-mapping>

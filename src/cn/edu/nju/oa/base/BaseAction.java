@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import javax.annotation.Resource;
 
 import cn.edu.nju.oa.service.DepartmentService;
+import cn.edu.nju.oa.service.PrivilegeService;
 import cn.edu.nju.oa.service.RoleService;
 import cn.edu.nju.oa.service.UserService;
 
@@ -21,6 +22,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
 	@Resource
 	protected UserService userService;
+	
+	@Resource
+	protected PrivilegeService privilegeService;
 
 	protected T model;
 

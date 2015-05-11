@@ -133,6 +133,52 @@ public class UserAction extends BaseAction<User> {
 	}
 
 	public String initPassword() throws Exception {
+		// 1，从数据库中取出原对象
+		User user = userService.getById(model.getId());
+
+		// 2，设置要修改的属性（要使用MD5摘要）
+		String md5Digest = DigestUtils.md5Hex("1234");
+		user.setPassword(md5Digest);
+
+		// 3，更新到数据库
+		userService.update(user);
 		return "toList";
+	}
+
+	/**
+	 * 登录页面
+	 * 
+	 * @return
+	 */
+	public String loginUI() {
+
+		return "loginUI";
+	}
+
+	/**
+	 * 注销
+	 * 
+	 * @return
+	 */
+	public String logout() {
+		ActionContext.getContext().getSession().remove("user");
+		return "logout";
+	}
+
+	/**
+	 * 登录功能
+	 * 
+	 * @return
+	 */
+	public String login() {
+		User user = userService.findByNameAndPassword(model.getLoginName(),
+				model.getPassword());
+		if (user == null) {
+			addFieldError("login", "用户名或者密码不正确");
+			return "loginUI";
+		} else {
+			ActionContext.getContext().getSession().put("user", user);
+			return "toIndex";
+		}
 	}
 }

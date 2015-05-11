@@ -20,20 +20,32 @@
 			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
 			<result name="toList" type="redirectAction">role_list</result>
+			<result name="setPrivilegeUI">/WEB-INF/jsp/roleAction/setPrivilegeUI.jsp
+			</result>
 		</action>
-		
+
 		<!-- 部门管理 -->
 		<action name="department_*" class="departmentAction" method="{1}">
 			<result name="list">/WEB-INF/jsp/departmentAction/list.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/departmentAction/saveUI.jsp</result>
-			<result name="toList" type="redirectAction">department_list?parentId=${parentId}</result>
+			<result name="toList" type="redirectAction">department_list?parentId=${parentId}
+			</result>
 		</action>
-		
+
 		<!-- 用户管理 -->
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="list">/WEB-INF/jsp/userAction/list.jsp</result>
+			<result name="loginUI">/WEB-INF/jsp/userAction/loginUI.jsp</result>
+			<result name="logout">/WEB-INF/jsp/userAction/logout.jsp</result>
+			<result name="toIndex" type="redirect">/index.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/userAction/saveUI.jsp</result>
-			<result name="toList" type="redirectAction">user_list?parentId=${parentId}</result>
+			<result name="toList" type="redirectAction">user_list?parentId=${parentId}
+			</result>
+		</action>
+
+		<!-- 主页 -->
+		<action name="home_*" class="homeAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
 		</action>
 	</package>
 

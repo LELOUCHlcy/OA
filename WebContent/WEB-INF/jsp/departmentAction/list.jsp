@@ -38,8 +38,12 @@
 				<td>${parent.name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
 				<td>
-					<s:a action="department_delete?id=%{id}&parentId=%{parent.id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
-					<s:a action="department_editUI?id=%{id}">修改</s:a>
+					<s:if test="#session.user.hasPrivilegeByName('部门删除')">
+						<s:a action="department_delete?id=%{id}&parentId=%{parent.id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+					</s:if>
+					<s:if test="#session.user.hasPrivilegeByName('部门修改')">
+						<s:a action="department_editUI?id=%{id}">修改</s:a>
+					</s:if>
 				</td>
 			</tr>
 		</s:iterator>	
@@ -50,7 +54,9 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="department_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+        	<s:if test="#session.user.hasPrivilegeByName('部门添加')">
+            	<s:a action="department_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+            </s:if>
 			<s:a action="department_list?parentId=%{#parent.parent.id}"><img src="${pageContext.request.contextPath}/style/blue/images/button/ReturnToPrevLevel.png" /></s:a>
         </div>
     </div>
