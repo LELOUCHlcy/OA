@@ -1,9 +1,13 @@
 package cn.edu.nju.oa.domain;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class User {
+import com.opensymphony.xwork2.ActionContext;
+
+public class User implements Serializable {
 
 	private Long id;
 	private Department department;
@@ -25,14 +29,46 @@ public class User {
 	private String email;
 	private String description;
 
+	// 根据权限名来判断有无权限
 	public boolean hasPrivilegeByName(String privilegeName) {
 		if (isAdmin()) {
 			return true;
 		}
 		for (Role role : roles) {
 			for (Privilege privilege : role.getPrivileges()) {
-				if (privilege.getName().equals(privilegeName)) {
+				if (privilegeName.equals(privilege.getName())) {
 					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// 根据URL来判断有无权限
+	public boolean hasPrivilegeByUrl(String privilegeUrl) {
+
+		if (privilegeUrl.contains("?")) {
+			int pos = privilegeUrl.indexOf("?");
+			privilegeUrl = privilegeUrl.substring(0, pos);
+		}
+
+		if (privilegeUrl.endsWith("UI")) {
+			privilegeUrl = privilegeUrl.substring(0, privilegeUrl.length() - 2);
+		}
+		if (isAdmin()) {
+			return true;
+		}
+
+		Collection<String> allPrivilegeUrls = (Collection<String>) ActionContext
+				.getContext().getApplication().get("allPrivilegeUrls");
+		if (!allPrivilegeUrls.contains(privilegeUrl)) {
+			return true;
+		} else {
+			for (Role role : roles) {
+				for (Privilege privilege : role.getPrivileges()) {
+					if (privilegeUrl.equals(privilege.getUrl())) {
+						return true;
+					}
 				}
 			}
 		}

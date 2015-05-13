@@ -109,8 +109,7 @@ public class RoleAction extends BaseAction<Role> {
 	 */
 	public String setPrivilege() {
 		Role role = roleService.getById(model.getId());
-		role.setName(model.getName());
-		role.setDescription(model.getDescription());
+	
 		role.setPrivileges(new HashSet<Privilege>(privilegeService
 				.getByIds(privilegeIds)));
 		roleService.update(role);

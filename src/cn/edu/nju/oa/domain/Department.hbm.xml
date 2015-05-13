@@ -1,32 +1,38 @@
 <?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015-5-8 15:38:09 by Hibernate Tools 3.4.0.CR1 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping package="cn.edu.nju.oa.domain">
+
 	<class name="Department" table="DEPARTMENT">
-		<id name="id" type="java.lang.Long">
-			<column name="ID" />
+		<id name="id">
 			<generator class="native" />
 		</id>
-		<property name="name" type="java.lang.String">
-			<column name="NAME" />
-		</property>
-		<property name="description" type="java.lang.String">
-			<column name="DESCRIPTION" />
-		</property>
-		<!-- users属性，本类与User是一对多的关系 -->
+		<property name="name" />
+		<property name="description" />
+
+
+		<!-- users属性，本类与User的一对多 -->
 		<set name="users">
 			<key column="departmentId"></key>
 			<one-to-many class="User" />
 		</set>
 
-		<!-- parent属性，本类与Department是多对一关系 -->
+
+		<!-- parent属性，本类与Department（上级）的多对一 -->
 		<many-to-one name="parent" class="Department" column="parentId"></many-to-one>
 
-		<!-- children属性，本类与Department是一对多的关系 -->
-		<set name="children" cascade="delete" order-by="id asc">
+
+		<!-- children属性，本类与Department（下级）的一对多
+			order-by属性：指定的是sql的orderby子句内容
+		 -->
+		<set name="children" cascade="delete" order-by="id ASC">
 			<key column="parentId"></key>
 			<one-to-many class="Department" />
 		</set>
+
+
 	</class>
+
 </hibernate-mapping>
