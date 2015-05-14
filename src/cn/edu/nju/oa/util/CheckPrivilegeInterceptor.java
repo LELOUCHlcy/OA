@@ -36,7 +36,7 @@ public class CheckPrivilegeInterceptor extends AbstractInterceptor {
 			if (user.hasPrivilegeByUrl(privUrl)) {
 				// 如果有权限，就放行
 				return invocation.invoke();
-			} else {
+			} else { 
 				// 如果没有权限，就转到提示页面
 				return "noPrivilegeError";
 			}

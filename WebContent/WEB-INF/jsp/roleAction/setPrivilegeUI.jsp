@@ -78,17 +78,7 @@
 							<tr class="TableDetail1">
 								<!-- 显示权限树 -->
 								<td>
-									<%-- 
-<s:checkboxlist name="privilegeIds" list="#privilegeList" listKey="id" listValue="name"></s:checkboxlist>
---%> <%-- 
-<s:iterator value="#privilegeList">
-	<input type="checkbox" name="privilegeIds" value="${id}" id="cb_${id}"
-		<s:property value="%{id in privilegeIds ? 'checked' : ''}"/>
-	/>
-	<label for="cb_${id}">${name}</label>
-	<br/>
-</s:iterator>
---%> <!-- 显示树状结构内容 -->
+
 									<ul id="tree">
 										<s:iterator value="#application.topPrivilegeList">
 											<li><input type="checkbox" name="privilegeIds"
@@ -130,8 +120,8 @@
 			<!-- 表单操作 -->
 			<div id="InputDetailBar">
 				<input type="image"
-					src="${pageContext.request.contextPath}/style/images/save.png" /> <a
-					href="javascript:history.go(-1);"><img
+					src="${pageContext.request.contextPath}/style/images/save.png" />
+				<a href="javascript:history.go(-1);"><img
 					src="${pageContext.request.contextPath}/style/images/goBack.png" /></a>
 			</div>
 		</s:form>

@@ -17,7 +17,7 @@
 		<interceptors>
 			<!-- 声明拦截器 -->
 			<interceptor name="checkPrivilege"
-				class="cn.itcast.oa.util.CheckPrivilegeInterceptor"></interceptor>
+				class="cn.edu.nju.oa.util.CheckPrivilegeInterceptor"></interceptor>
 
 			<!-- 重新定义默认的拦截器栈 -->
 			<interceptor-stack name="defaultStack">
@@ -74,6 +74,13 @@
 		<!-- 首页 -->
 		<action name="home_*" class="homeAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+		</action>
+		
+		<!-- 板块管理 -->
+		<action name="forumManage_*" class="forumManageAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/forumManageAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/forumManageAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">forumManage_list</result>
 		</action>
 
 

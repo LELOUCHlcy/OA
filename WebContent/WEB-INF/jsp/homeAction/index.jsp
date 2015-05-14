@@ -15,7 +15,8 @@
 		<frame noresize name="status_bar" scrolling="no" src="${pageContext.request.contextPath}/home_bottom.action">
 	</frameset>
 
-	<noframes><body>
+	<noframes>
+	<body>
 </body>
 </noframes></html>
 
