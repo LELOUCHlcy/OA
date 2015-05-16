@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="cn.edu.nju.oa.domain">
 
-	<class name="User" table="USER">
+	<class name="User" table="ITCAST_USER">
 		<id name="id">
             <generator class="native"/>
 		</id>
@@ -23,7 +23,7 @@
 		
 		
 		<!-- roles属性，本类与Role的多对多 -->
-		<set name="roles" table="ROLE_USER" lazy="false">
+		<set name="roles" table="ITCAST_ROLE_USER" lazy="false">
 			<key column="userId"></key>
 			<many-to-many class="Role" column="roleId"></many-to-many>
 		</set>

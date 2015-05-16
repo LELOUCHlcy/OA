@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="cn.edu.nju.oa.domain">
 
-	<class name="Department" table="DEPARTMENT">
+	<class name="Department" table="ITCAST_DEPARTMENT">
 		<id name="id">
 			<generator class="native" />
 		</id>

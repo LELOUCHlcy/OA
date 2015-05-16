@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 import cn.edu.nju.oa.base.BaseAction;
 import cn.edu.nju.oa.domain.Forum;
+import cn.edu.nju.oa.domain.PageBean;
 import cn.edu.nju.oa.domain.Reply;
 import cn.edu.nju.oa.domain.Topic;
 import cn.edu.nju.oa.domain.User;
@@ -20,24 +21,24 @@ import cn.edu.nju.oa.domain.User;
 public class TopicAction extends BaseAction<Topic> {
 
 	private Long forumId;
-
-	
-
 	public Long getForumId() {
 		return forumId;
 	}
-
 	public void setForumId(Long forumId) {
 		this.forumId = forumId;
 	}
+
 
 	// 显示主帖+回帖
 	public String show() {
 		Topic topic = topicService.getById(model.getId());
 		ActionContext.getContext().put("topic", topic);
-		
-		List<Reply> replyList = replyService.getByTopic(topic);
-		ActionContext.getContext().put("replyList", replyList);
+
+		// List<Reply> replyList = replyService.getByTopic(topic);
+		// ActionContext.getContext().put("replyList", replyList);
+		PageBean pageBean = replyService.getPageBeanByTopic(pageNum, pageSize,
+				topic);
+		ActionContext.getContext().getValueStack().push(pageBean);
 		return "show";
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.nju.oa.base.DaoSupportImpl;
 import cn.edu.nju.oa.domain.Forum;
+import cn.edu.nju.oa.domain.PageBean;
 import cn.edu.nju.oa.domain.Reply;
 import cn.edu.nju.oa.domain.Topic;
 import cn.edu.nju.oa.service.ReplyService;
@@ -15,14 +16,6 @@ import cn.edu.nju.oa.service.ReplyService;
 @Transactional
 public class ReplyServiceImpl extends DaoSupportImpl<Reply> implements
 		ReplyService {
-
-	@Override
-	public List<Reply> getByTopic(Topic topic) {
-		return getSession().createQuery(//
-				"FROM Reply r WHERE r.topic=? ORDER BY r.postTime ASC")//
-				.setParameter(0, topic)//
-				.list();
-	}
 
 	@Override
 	public void save(Reply reply) {
@@ -40,5 +33,24 @@ public class ReplyServiceImpl extends DaoSupportImpl<Reply> implements
 
 		getSession().update(topic);
 		getSession().update(forum);
+	}
+
+	@Override
+	public PageBean getPageBeanByTopic(int pageNum, int pageSize, Topic topic) {
+		List recordList = getSession()
+				.createQuery("From Reply r WHERE r.topic=? ORDER BY r.postTime")
+				.setParameter(0, topic).setMaxResults(pageSize)
+				.setFirstResult((pageNum - 1) * pageSize).list();
+
+		Long recordNum = (Long) getSession()
+				.createQuery("Select COUNT(*) From Reply r where r.topic=? ")
+				.setParameter(0, topic).uniqueResult();
+		return new PageBean(pageNum, pageSize, recordList, recordNum.intValue());
+	}
+
+	@Override
+	public List<Reply> getByTopic(Topic topic) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

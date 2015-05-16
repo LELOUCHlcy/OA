@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015-5-15 9:55:05 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping package="cn.edu.nju.oa.domain">
-	<class name="Reply" table="REPLY">
+	<class name="Reply" table="ITCAST_REPLY">
 		<id name="id" type="java.lang.Long">
 			<column name="ID" />
 			<generator class="native" />

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2015-5-15 9:55:05 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping package="cn.edu.nju.oa.domain">
-	<class name="Forum" table="FORUM">
+	<class name="Forum" table="ITCAST_FORUM">
 		<id name="id" type="java.lang.Long">
 			<column name="ID" />
 			<generator class="native" />
@@ -18,7 +18,7 @@
 			<column name="POSITION" />
 		</property>
 		<!-- topics属性，本类与Topic是一对多关系 -->
-		<set name="topics" table="TOPIC">
+		<set name="topics" table="ITCAST_TOPIC">
 			<key>
 				<column name="forumId" />
 			</key>

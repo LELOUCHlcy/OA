@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.nju.oa.base.DaoSupportImpl;
 import cn.edu.nju.oa.domain.Forum;
+import cn.edu.nju.oa.domain.PageBean;
 import cn.edu.nju.oa.domain.Topic;
 import cn.edu.nju.oa.service.TopicService;
 
@@ -40,5 +41,20 @@ public class TopicServiceImpl extends DaoSupportImpl<Topic> implements
 		forum.setArticleCount(forum.getArticleCount() + 1);// 文章数量（主题数+回复数）
 		forum.setLastTopic(topic); // 最后发表的主题
 		getSession().update(forum);
+	}
+
+	@Override
+	public PageBean getPageBeanByTopic(int pageNum, int pageSize, Forum forum) {
+		List recordList = getSession()
+				.createQuery(//
+						// 排序：所有置顶帖在最上面，并按最后更新时间排序，让新状态的在上面。
+						"FROM Topic t WHERE t.forum=? ORDER BY (CASE t.type WHEN 2 THEN 2 ELSE 0 END) DESC, t.lastUpdateTime DESC")
+				.setParameter(0, forum).setMaxResults(pageSize)
+				.setFirstResult((pageNum - 1) * pageSize).list();
+
+		Long recordNum = (Long) getSession()
+				.createQuery("Select COUNT(*) From Topic t where t.forum=? ")
+				.setParameter(0, forum).uniqueResult();
+		return new PageBean(pageNum, pageSize, recordList, recordNum.intValue());
 	}
 }
